@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "100221988084",
+    "project_id": "idea-docket",
+    "storage_bucket": "idea-docket.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:100221988084:android:709938b15d41ee90f142a1",
+        "android_client_info": {
+          "package_name": "com.godrishuniverse.idea_docket"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD2fbD_DrxlOz23kQJr091TPfOETXw82A4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
