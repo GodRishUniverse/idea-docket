@@ -4,4 +4,3 @@
 - It has google Gemini embedded so that some tasks like note generation from image and search chat.
 - Created for the Google Gemini Competition
 
-TODO: Scale the UI according to screen size
