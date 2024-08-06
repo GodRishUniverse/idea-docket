@@ -55,7 +55,7 @@ class _ColourBlindnessSettingsState extends State<ColourBlindnessSettings> {
           ColorBlindnessType.values[prefs.getInt('colourBlindnessChosen') ?? 0];
 
       responseFromGeminiInColourBlindnessIdentification.text =
-          "Colour blindenss type set right now: ${returnColorBlindNessTypeFromIndex(prefs.getInt('colourBlindnessChosen') ?? 0)}";
+          "Colour blindenss type set right now: **${returnColorBlindNessTypeFromIndex(prefs.getInt('colourBlindnessChosen') ?? 0)}**";
 
       setState(() {});
     });
