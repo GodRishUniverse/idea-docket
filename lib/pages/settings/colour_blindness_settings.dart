@@ -5,7 +5,9 @@ import 'package:color_blindness/color_blindness.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_markdown_selectionarea/flutter_markdown.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
+import 'package:idea_docket/misc/code_element_builder.dart';
 
 import 'package:idea_docket/theme/colours.dart';
 import 'package:idea_docket/pages/settings/cubits/colour_blindness_enabled_cubit.dart';
@@ -53,7 +55,7 @@ class _ColourBlindnessSettingsState extends State<ColourBlindnessSettings> {
           ColorBlindnessType.values[prefs.getInt('colourBlindnessChosen') ?? 0];
 
       responseFromGeminiInColourBlindnessIdentification.text =
-          "Chosen colour blindenss type right now: ${returnColorBlindNessTypeFromIndex(prefs.getInt('colourBlindnessChosen') ?? 0)}";
+          "Colour blindenss type set right now: ${returnColorBlindNessTypeFromIndex(prefs.getInt('colourBlindnessChosen') ?? 0)}";
 
       setState(() {});
     });
@@ -98,7 +100,7 @@ class _ColourBlindnessSettingsState extends State<ColourBlindnessSettings> {
         prefs.setInt('colourBlindnessChosen', index);
 
         responseFromGeminiInColourBlindnessIdentification.text =
-            "Gemini chose: ${returnColorBlindNessTypeFromIndex(index)}";
+            "Gemini says: ${response.text.toString()}";
 
         setState(() {});
       } else {
@@ -386,7 +388,7 @@ class _ColourBlindnessSettingsState extends State<ColourBlindnessSettings> {
                           whiteUsed,
                           colourBlindnessChosen ?? ColorBlindnessType.none,
                         ),
-                        borderRadius: BorderRadius.circular(32),
+                        borderRadius: BorderRadius.circular(10),
                         boxShadow: const [
                           BoxShadow(
                             color: greyUsedOpacityLowered,
@@ -396,17 +398,61 @@ class _ColourBlindnessSettingsState extends State<ColourBlindnessSettings> {
                           ),
                         ],
                       ),
-                      child: TextField(
-                        controller:
-                            responseFromGeminiInColourBlindnessIdentification,
-                        readOnly: true,
-                        decoration: const InputDecoration(
-                          border: InputBorder.none,
-                          contentPadding: EdgeInsets.symmetric(horizontal: 20),
+                      child: SelectionArea(
+                        child: MarkdownBody(
+                          data:
+                              responseFromGeminiInColourBlindnessIdentification
+                                  .text,
+                          builders: {
+                            'code': CodeElementBuilder(),
+                          },
+                          styleSheet: MarkdownStyleSheet(
+                              h1: TextStyle(
+                                fontSize: 24,
+                                color: colorBlindness(
+                                  orangeUsed,
+                                  colourBlindnessChosen ??
+                                      ColorBlindnessType.none,
+                                ),
+                              ),
+                              code: TextStyle(
+                                fontSize: 14,
+                                color: colorBlindness(
+                                  whiteUsed,
+                                  colourBlindnessChosen ??
+                                      ColorBlindnessType.none,
+                                ),
+                                backgroundColor: colorBlindness(
+                                  darkBackground,
+                                  colourBlindnessChosen ??
+                                      ColorBlindnessType.none,
+                                ),
+                              ),
+                              codeblockPadding: const EdgeInsets.all(8),
+                              codeblockDecoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(4),
+                                color: colorBlindness(
+                                  darkBackground,
+                                  colourBlindnessChosen ??
+                                      ColorBlindnessType.none,
+                                ),
+                              ) // new end
+                              ),
+                          shrinkWrap: true,
                         ),
-                        minLines: 2,
-                        maxLines: 5,
                       ),
+
+                      // TextField(
+                      //   controller:
+                      //       responseFromGeminiInColourBlindnessIdentification,
+                      //   readOnly: true,
+                      //   decoration: const InputDecoration(
+                      //     border: InputBorder.none,
+                      //     contentPadding: EdgeInsets.symmetric(horizontal: 20),
+                      //   ),
+                      //   minLines: 2,
+                      //   maxLines: 100,
+                      // ),
                     ),
                   ),
                 ],
