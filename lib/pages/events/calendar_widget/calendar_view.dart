@@ -114,28 +114,18 @@ class _CalenderWidgetForEventsState extends State<CalenderWidgetForEvents> {
                   color: blackUsed,
                 ),
               ),
-              monthCellStyle: MonthCellStyle(
-                textStyle: const TextStyle(
+              monthCellStyle: const MonthCellStyle(
+                textStyle: TextStyle(
                   fontFamily: 'Gilroy',
                   color: blackUsed,
                 ),
                 leadingDatesTextStyle: TextStyle(
                   fontFamily: 'Gilroy',
-                  color: colorBlindness(
-                    greyUsedOpacityLowered,
-                    returnColorBlindNessTypeFromIndex(
-                      colourBlindnessIndex,
-                    ),
-                  ),
+                  color: greyUsedOpacityLowered,
                 ),
                 trailingDatesTextStyle: TextStyle(
                   fontFamily: 'Gilroy',
-                  color: colorBlindness(
-                    greyUsedOpacityLowered,
-                    returnColorBlindNessTypeFromIndex(
-                      colourBlindnessIndex,
-                    ),
-                  ),
+                  color: greyUsedOpacityLowered,
                 ),
               ),
             ),

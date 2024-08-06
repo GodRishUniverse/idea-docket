@@ -111,12 +111,7 @@ class _AddEventState extends State<AddEvent> {
         child: Hero(
           tag: 'add-event',
           child: Material(
-            color: colorBlindness(
-              greyUsed,
-              returnColorBlindNessTypeFromIndex(
-                colourBlindnessIndex,
-              ),
-            ),
+            color: greyUsed,
             elevation: 2,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(25),

@@ -59,12 +59,7 @@ class _AttachmentUIState extends State<AttachmentUI>
           maxHeight: MediaQuery.of(context).size.height * 0.25,
         ),
         decoration: BoxDecoration(
-          color: colorBlindness(
-            greyUsedOpacityLowered,
-            returnColorBlindNessTypeFromIndex(
-              colourBlindnessIndex,
-            ),
-          ).withOpacity(0.7),
+          color: greyUsedOpacityLowered.withOpacity(0.7),
           borderRadius: BorderRadius.circular(10),
           boxShadow: [
             BoxShadow(
@@ -382,12 +377,7 @@ class AttachmentTile extends StatelessWidget {
           padding: const EdgeInsets.all(8),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
-            color: colorBlindness(
-              greyUsed,
-              returnColorBlindNessTypeFromIndex(
-                colourBlindnessIndex,
-              ),
-            ),
+            color: greyUsed,
           ),
           child: SingleChildScrollView(
             child: Row(

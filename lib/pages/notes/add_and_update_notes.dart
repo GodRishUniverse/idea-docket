@@ -274,23 +274,11 @@ class _AddNotePopUpCardState extends State<AddAndUpdateNotePopUpCard> {
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
-                    color: (isTitleEmpty)
-                        ? null
-                        : colorBlindness(
-                            greyUsedOpacityLowered,
-                            returnColorBlindNessTypeFromIndex(
-                              colourBlindnessIndex,
-                            ),
-                          ),
+                    color: (isTitleEmpty) ? null : greyUsedOpacityLowered,
                   ),
                   child: IconButton(
                     tooltip: "Image to note",
-                    disabledColor: colorBlindness(
-                      greyUsed,
-                      returnColorBlindNessTypeFromIndex(
-                        colourBlindnessIndex,
-                      ),
-                    ),
+                    disabledColor: greyUsed,
                     onPressed: (isTitleEmpty)
                         ? () async {
                             final permission =
@@ -320,12 +308,7 @@ class _AddNotePopUpCardState extends State<AddAndUpdateNotePopUpCard> {
                                   colourBlindnessIndex,
                                 ),
                               )
-                            : colorBlindness(
-                                greyUsed,
-                                returnColorBlindNessTypeFromIndex(
-                                  colourBlindnessIndex,
-                                ),
-                              ),
+                            : greyUsed,
                         size: 30,
                       ),
                     ),
@@ -354,22 +337,10 @@ class _AddNotePopUpCardState extends State<AddAndUpdateNotePopUpCard> {
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
-                    color: (!isTitleEmpty)
-                        ? null
-                        : colorBlindness(
-                            greyUsedOpacityLowered,
-                            returnColorBlindNessTypeFromIndex(
-                              colourBlindnessIndex,
-                            ),
-                          ),
+                    color: (!isTitleEmpty) ? null : greyUsedOpacityLowered,
                   ),
                   child: IconButton(
-                    disabledColor: colorBlindness(
-                      greyUsed,
-                      returnColorBlindNessTypeFromIndex(
-                        colourBlindnessIndex,
-                      ),
-                    ),
+                    disabledColor: greyUsed,
                     onPressed: (!isTitleEmpty)
                         ? (updatingNote ? updateNote : addNote)
                         : null,
@@ -382,12 +353,7 @@ class _AddNotePopUpCardState extends State<AddAndUpdateNotePopUpCard> {
                                 colourBlindnessIndex,
                               ),
                             )
-                          : colorBlindness(
-                              greyUsed,
-                              returnColorBlindNessTypeFromIndex(
-                                colourBlindnessIndex,
-                              ),
-                            ),
+                          : greyUsed,
                       size: 30,
                     ),
                   ),
@@ -731,12 +697,7 @@ class SpeechToTextWidget extends StatelessWidget {
         child: Tooltip(
           message: "Use speech to add note contents.",
           child: IconButton(
-            disabledColor: colorBlindness(
-              greyUsed,
-              returnColorBlindNessTypeFromIndex(
-                colourBlindnessIndex,
-              ),
-            ),
+            disabledColor: greyUsed,
             onPressed: () async {
               final result = await Navigator.of(context)
                   .push(HeroDialogueRoute(builder: (context) {

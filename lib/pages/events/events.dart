@@ -284,12 +284,7 @@ class _EventsScreenState extends State<EventsScreen> {
           padding: const EdgeInsets.all(5),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(25),
-            color: colorBlindness(
-              greyUsed,
-              returnColorBlindNessTypeFromIndex(
-                colourBlindnessIndex,
-              ),
-            ),
+            color: greyUsed,
           ),
           child: GestureDetector(
             onTap: buildEventsForCalendar,
@@ -335,12 +330,7 @@ class _EventsScreenState extends State<EventsScreen> {
           padding: const EdgeInsets.all(5),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(25),
-            color: colorBlindness(
-              greyUsed,
-              returnColorBlindNessTypeFromIndex(
-                colourBlindnessIndex,
-              ),
-            ),
+            color: greyUsed,
           ),
           child: GestureDetector(
             onTap: () async {
@@ -418,15 +408,10 @@ class _EventsScreenState extends State<EventsScreen> {
                     const SizedBox(
                       height: 20,
                     ),
-                    Text(
+                    const Text(
                       'No Events created',
                       style: TextStyle(
-                        color: colorBlindness(
-                          greyUsed,
-                          returnColorBlindNessTypeFromIndex(
-                            colourBlindnessIndex,
-                          ),
-                        ),
+                        color: greyUsed,
                         fontSize: 19,
                       ),
                     ),
@@ -676,12 +661,7 @@ class _DateDisplayWidgetState extends State<DateDisplayWidget> {
                       colourBlindnessIndex,
                     ),
                   )
-                : colorBlindness(
-                    greyUsed,
-                    returnColorBlindNessTypeFromIndex(
-                      colourBlindnessIndex,
-                    ),
-                  ).withOpacity(0.85),
+                : greyUsed.withOpacity(0.85),
           ),
           child: Column(
             children: [

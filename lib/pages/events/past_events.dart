@@ -108,15 +108,10 @@ class _PastEventsScreenState extends State<PastEventsScreen> {
                     const SizedBox(
                       height: 20,
                     ),
-                    Text(
+                    const Text(
                       'There are no old events present!',
                       style: TextStyle(
-                        color: colorBlindness(
-                          greyUsed,
-                          returnColorBlindNessTypeFromIndex(
-                            colourBlindnessIndex,
-                          ),
-                        ),
+                        color: greyUsed,
                         fontSize: 19,
                       ),
                     ),

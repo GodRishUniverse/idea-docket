@@ -21,7 +21,14 @@ class ColourBlindnessSettings extends StatefulWidget {
 }
 
 class _ColourBlindnessSettingsState extends State<ColourBlindnessSettings> {
-  ColorBlindnessType? colorBlindness = ColorBlindnessType.none;
+  ColorBlindnessType? colourBlindnessChosen = ColorBlindnessType.none;
+
+  TextEditingController controller = TextEditingController();
+
+  TextEditingController responseFromGeminiInColourBlindnessIdentification =
+      TextEditingController();
+
+  bool isLoading = false;
 
   @override
   void initState() {
@@ -42,8 +49,11 @@ class _ColourBlindnessSettingsState extends State<ColourBlindnessSettings> {
           .read<ColourBlindnessEnabledCubit>()
           .change(prefs.getBool('colourBlindnessEnabled') ?? false);
 
-      colorBlindness =
+      colourBlindnessChosen =
           ColorBlindnessType.values[prefs.getInt('colourBlindnessChosen') ?? 0];
+
+      responseFromGeminiInColourBlindnessIdentification.text =
+          "Chosen colour blindenss type right now: ${returnColorBlindNessTypeFromIndex(prefs.getInt('colourBlindnessChosen') ?? 0)}";
 
       setState(() {});
     });
@@ -51,6 +61,9 @@ class _ColourBlindnessSettingsState extends State<ColourBlindnessSettings> {
 
   Future callGeminiForColourBlindnessIdentification(String text) async {
     try {
+      setState(() {
+        isLoading = true;
+      });
       GenerativeModel model = GenerativeModel(
           model: 'gemini-1.5-pro',
           apiKey: dotenv.env['GOOGLE_GEMINI_API_KEY']!);
@@ -69,15 +82,39 @@ class _ColourBlindnessSettingsState extends State<ColourBlindnessSettings> {
       """;
       final response = await model.generateContent([Content.text(prompt)]);
 
-      int? index = int.tryParse(response.toString().trim());
+      log("Response from gemini: ${response.text.toString()}");
+
+      RegExp regExp = RegExp(r"\d+");
+
+      Match? firstMatch = regExp.firstMatch(response.text.toString().trim());
+
+      int? index =
+          firstMatch != null ? int.tryParse(firstMatch.group(0)!) : null;
+
+      //int? index = int.tryParse(response.text.toString().trim());
       if (index != null) {
+        log("Index from gemini: $index");
         final prefs = await SharedPreferences.getInstance();
         prefs.setInt('colourBlindnessChosen', index);
+
+        responseFromGeminiInColourBlindnessIdentification.text =
+            "Gemini chose: ${returnColorBlindNessTypeFromIndex(index)}";
+
+        setState(() {});
       } else {
-        log("Error in response from gemini: ${response.toString()}");
+        responseFromGeminiInColourBlindnessIdentification.text =
+            "Gemini did not return an index. Please try again.}";
+
+        log("Error in response from gemini: ${response.text.toString()}");
       }
     } catch (e) {
+      responseFromGeminiInColourBlindnessIdentification.text =
+          "API Error. Please try again.}";
       log(e.toString());
+    } finally {
+      setState(() {
+        isLoading = false;
+      });
     }
   }
 
@@ -234,7 +271,7 @@ class _ColourBlindnessSettingsState extends State<ColourBlindnessSettings> {
                             leading: Radio<ColorBlindnessType>.adaptive(
                               activeColor: blueUsedInLinks,
                               value: ColorBlindnessType.values[index],
-                              groupValue: colorBlindness,
+                              groupValue: colourBlindnessChosen,
                               onChanged: (ColorBlindnessType? value) async {
                                 final prefs =
                                     await SharedPreferences.getInstance();
@@ -242,7 +279,7 @@ class _ColourBlindnessSettingsState extends State<ColourBlindnessSettings> {
                                 prefs.setInt('colourBlindnessChosen', index);
 
                                 setState(() {
-                                  colorBlindness = value;
+                                  colourBlindnessChosen = value;
                                 });
                               },
                             ),
@@ -252,7 +289,128 @@ class _ColourBlindnessSettingsState extends State<ColourBlindnessSettings> {
                 ),
               )
             else
-              importantMessageForGemini(),
+              Column(
+                children: [
+                  importantMessageForGemini(),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      bottom: 16.0,
+                      top: 16,
+                      left: 5,
+                      right: 5,
+                    ),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: colorBlindness(
+                          whiteUsed,
+                          colourBlindnessChosen ?? ColorBlindnessType.none,
+                        ),
+                        borderRadius: BorderRadius.circular(32),
+                        boxShadow: const [
+                          BoxShadow(
+                            color: greyUsedOpacityLowered,
+                            spreadRadius: 5,
+                            blurRadius: 7,
+                            offset: Offset(0, 3),
+                          ),
+                        ],
+                      ),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: TextFormField(
+                              controller: controller,
+                              autofocus: true,
+                              autocorrect: true,
+                              decoration: const InputDecoration(
+                                hintText:
+                                    "Please describe your color blindness...",
+                                border: InputBorder.none,
+                                contentPadding:
+                                    EdgeInsets.symmetric(horizontal: 20),
+                              ),
+                              onFieldSubmitted: (String value) {
+                                callGeminiForColourBlindnessIdentification(
+                                    value);
+                              },
+                              minLines: 2,
+                              maxLines: 100,
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 8,
+                          ),
+                          isLoading
+                              ? Padding(
+                                  padding: const EdgeInsets.all(8),
+                                  child: SizedBox(
+                                    width: 25,
+                                    height: 25,
+                                    child: CircularProgressIndicator(
+                                      color: colorBlindness(
+                                        orangeUsed,
+                                        colourBlindnessChosen ??
+                                            ColorBlindnessType.none,
+                                      ),
+                                    ),
+                                  ),
+                                )
+                              : Padding(
+                                  padding: const EdgeInsets.all(16),
+                                  child: GestureDetector(
+                                    onTap: () async {
+                                      callGeminiForColourBlindnessIdentification(
+                                          controller.text);
+                                      controller.clear();
+                                    },
+                                    child: const Icon(
+                                      Icons.send,
+                                      size: 25,
+                                    ),
+                                  ),
+                                ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      bottom: 16.0,
+                      top: 16,
+                      left: 5,
+                      right: 5,
+                    ),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: colorBlindness(
+                          whiteUsed,
+                          colourBlindnessChosen ?? ColorBlindnessType.none,
+                        ),
+                        borderRadius: BorderRadius.circular(32),
+                        boxShadow: const [
+                          BoxShadow(
+                            color: greyUsedOpacityLowered,
+                            spreadRadius: 5,
+                            blurRadius: 7,
+                            offset: Offset(0, 3),
+                          ),
+                        ],
+                      ),
+                      child: TextField(
+                        controller:
+                            responseFromGeminiInColourBlindnessIdentification,
+                        readOnly: true,
+                        decoration: const InputDecoration(
+                          border: InputBorder.none,
+                          contentPadding: EdgeInsets.symmetric(horizontal: 20),
+                        ),
+                        minLines: 2,
+                        maxLines: 5,
+                      ),
+                    ),
+                  ),
+                ],
+              )
           ],
         );
       },
@@ -321,6 +479,8 @@ class EnabledDisabledWidget extends StatelessWidget {
             final prefs = await SharedPreferences.getInstance();
 
             await prefs.setBool('colourBlindnessEnabled', value);
+
+            await prefs.setInt('colourBlindnessChosen', 0);
           },
           spacing: 50.0,
           style: const ToggleStyle(

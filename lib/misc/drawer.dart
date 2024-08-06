@@ -110,12 +110,7 @@ class DrawerWidget extends StatelessWidget {
                             colourBlindnessIndex,
                           ),
                         ),
-                        colorBlindness(
-                          greyUsedOpacityLowered,
-                          returnColorBlindNessTypeFromIndex(
-                            colourBlindnessIndex,
-                          ),
-                        )
+                        greyUsedOpacityLowered
                       ],
                     ),
                   ),

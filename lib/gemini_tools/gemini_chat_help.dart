@@ -230,17 +230,12 @@ class _GeminiChatForUnderstandingAndSearchingState
                       ),
                     ),
                     borderRadius: BorderRadius.circular(32),
-                    boxShadow: [
+                    boxShadow: const [
                       BoxShadow(
-                        color: colorBlindness(
-                          greyUsedOpacityLowered,
-                          returnColorBlindNessTypeFromIndex(
-                            colourBlindnessIndex,
-                          ),
-                        ),
+                        color: greyUsedOpacityLowered,
                         spreadRadius: 5,
                         blurRadius: 7,
-                        offset: const Offset(0, 3),
+                        offset: Offset(0, 3),
                       ),
                     ],
                   ),
@@ -463,12 +458,7 @@ class RegenerateWidget extends StatelessWidget {
         height: 45,
         child: Container(
           decoration: BoxDecoration(
-            color: colorBlindness(
-              greyUsed,
-              returnColorBlindNessTypeFromIndex(
-                colourBlindnessIndex,
-              ),
-            ),
+            color: greyUsed,
             borderRadius: BorderRadius.circular(15),
           ),
           child: Row(
@@ -535,12 +525,7 @@ class CopyWidget extends StatelessWidget {
         height: 45,
         child: Container(
           decoration: BoxDecoration(
-            color: colorBlindness(
-              greyUsed,
-              returnColorBlindNessTypeFromIndex(
-                colourBlindnessIndex,
-              ),
-            ),
+            color: greyUsed,
             borderRadius: BorderRadius.circular(15),
           ),
           child: Row(

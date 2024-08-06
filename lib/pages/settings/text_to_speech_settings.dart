@@ -203,12 +203,7 @@ class _TextToSpeechSettingsState extends State<TextToSpeechSettings> {
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
                               color: (isPlaying)
-                                  ? colorBlindness(
-                                      greyUsed,
-                                      returnColorBlindNessTypeFromIndex(
-                                        colourBlindnessIndex,
-                                      ),
-                                    )
+                                  ? greyUsed
                                   : colorBlindness(
                                       redUsed,
                                       returnColorBlindNessTypeFromIndex(
@@ -287,12 +282,7 @@ class _TextToSpeechSettingsState extends State<TextToSpeechSettings> {
                                           colourBlindnessIndex,
                                         ),
                                       )
-                                    : colorBlindness(
-                                        greyUsed,
-                                        returnColorBlindNessTypeFromIndex(
-                                          colourBlindnessIndex,
-                                        ),
-                                      ),
+                                    : greyUsed,
                               ),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -529,12 +519,7 @@ class _TextToSpeechSettingsState extends State<TextToSpeechSettings> {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
                 border: Border.all(color: blackUsed),
-                color: colorBlindness(
-                  greyUsedOpacityLowered,
-                  returnColorBlindNessTypeFromIndex(
-                    colourBlindnessIndex,
-                  ),
-                ),
+                color: greyUsed,
               ),
               padding: const EdgeInsets.all(10),
               child: const Column(

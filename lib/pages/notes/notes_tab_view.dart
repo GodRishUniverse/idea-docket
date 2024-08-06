@@ -224,17 +224,12 @@ class _NotesTabViewState extends State<NotesTabView> {
                             decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(25),
-                              boxShadow: [
+                              boxShadow: const [
                                 BoxShadow(
-                                  color: colorBlindness(
-                                    greyUsedOpacityLowered,
-                                    returnColorBlindNessTypeFromIndex(
-                                      colourBlindnessIndex,
-                                    ),
-                                  ),
+                                  color: greyUsedOpacityLowered,
                                   spreadRadius: 5,
                                   blurRadius: 7,
-                                  offset: const Offset(0, 3),
+                                  offset: Offset(0, 3),
                                 ),
                               ],
                             ),
@@ -316,15 +311,10 @@ class _NotesTabViewState extends State<NotesTabView> {
                           message: "Search",
                           child: Container(
                             decoration: BoxDecoration(
-                              boxShadow: [
+                              boxShadow: const [
                                 BoxShadow(
-                                  color: colorBlindness(
-                                    greyUsedOpacityLowered,
-                                    returnColorBlindNessTypeFromIndex(
-                                      colourBlindnessIndex,
-                                    ),
-                                  ),
-                                  offset: const Offset(2, 5),
+                                  color: greyUsedOpacityLowered,
+                                  offset: Offset(2, 5),
                                   blurRadius: 6,
                                 )
                               ],
@@ -360,15 +350,10 @@ class _NotesTabViewState extends State<NotesTabView> {
                           message: "Gemini Chat Help",
                           child: Container(
                             decoration: BoxDecoration(
-                              boxShadow: [
+                              boxShadow: const [
                                 BoxShadow(
-                                    color: colorBlindness(
-                                      greyUsed,
-                                      returnColorBlindNessTypeFromIndex(
-                                        colourBlindnessIndex,
-                                      ),
-                                    ),
-                                    offset: const Offset(0, 4),
+                                    color: greyUsed,
+                                    offset: Offset(0, 4),
                                     blurRadius: 4)
                               ],
                               borderRadius: BorderRadius.circular(30),
@@ -455,15 +440,10 @@ class _NotesTabViewState extends State<NotesTabView> {
                     Lottie.asset(
                       "assets/empty_notes.json",
                     ),
-                    Text(
+                    const Text(
                       'No notes created',
                       style: TextStyle(
-                        color: colorBlindness(
-                          greyUsed,
-                          returnColorBlindNessTypeFromIndex(
-                            colourBlindnessIndex,
-                          ),
-                        ),
+                        color: greyUsed,
                         fontSize: 19,
                       ),
                     ),
@@ -572,15 +552,10 @@ class _NotesTabViewState extends State<NotesTabView> {
                       width: 300,
                       child: Image.asset("assets/not_found_2.png"),
                     ),
-                    Text(
+                    const Text(
                       'No notes found',
                       style: TextStyle(
-                        color: colorBlindness(
-                          greyUsed,
-                          returnColorBlindNessTypeFromIndex(
-                            colourBlindnessIndex,
-                          ),
-                        ),
+                        color: greyUsed,
                         fontSize: 19,
                       ),
                     ),
@@ -692,15 +667,10 @@ class _NotesTabViewState extends State<NotesTabView> {
                     const SizedBox(
                       height: 10,
                     ),
-                    Text(
+                    const Text(
                       'Empty Trash',
                       style: TextStyle(
-                        color: colorBlindness(
-                          greyUsed,
-                          returnColorBlindNessTypeFromIndex(
-                            colourBlindnessIndex,
-                          ),
-                        ),
+                        color: greyUsed,
                         fontSize: 27,
                       ),
                     ),
@@ -803,15 +773,10 @@ class _NotesTabViewState extends State<NotesTabView> {
                     const SizedBox(
                       height: 10,
                     ),
-                    Text(
+                    const Text(
                       'No such note in Trash',
                       style: TextStyle(
-                        color: colorBlindness(
-                          greyUsed,
-                          returnColorBlindNessTypeFromIndex(
-                            colourBlindnessIndex,
-                          ),
-                        ),
+                        color: greyUsed,
                         fontSize: 27,
                       ),
                     ),
