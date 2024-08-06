@@ -254,65 +254,8 @@ class _EventsScreenState extends State<EventsScreen> {
                                 bottomRight: Radius.circular(
                                     widget.isDrawerOpen ? 40 : 0)),
                           ),
-                          child: Padding(
-                            padding: const EdgeInsets.only(
-                                top: 10, left: 40, right: 40, bottom: 10),
-                            child: GestureDetector(
-                              onTap: () async {
-                                Navigator.of(context)
-                                    .push(HeroDialogueRoute(builder: (context) {
-                                  return const AddEvent();
-                                }));
-                              },
-                              child: Hero(
-                                tag: 'add-event',
-                                child: Material(
-                                  color: Colors.transparent,
-                                  child: Container(
-                                    padding: const EdgeInsets.only(
-                                      left: 20,
-                                      right: 20,
-                                    ),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20),
-                                      color: blackUsed,
-                                    ),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Icon(
-                                          Icons.event_seat,
-                                          color: colorBlindness(
-                                            whiteUsed,
-                                            returnColorBlindNessTypeFromIndex(
-                                              colourBlindnessIndex,
-                                            ),
-                                          ),
-                                        ),
-                                        Expanded(
-                                          child: Align(
-                                            alignment: Alignment.center,
-                                            child: Text(
-                                              "Create New Event",
-                                              style: TextStyle(
-                                                color: colorBlindness(
-                                                  whiteUsed,
-                                                  returnColorBlindNessTypeFromIndex(
-                                                    colourBlindnessIndex,
-                                                  ),
-                                                ),
-                                              ),
-                                              overflow: TextOverflow.ellipsis,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
+                          child: AddEventButton(
+                            colourBlindnessIndex: colourBlindnessIndex,
                           ),
                         ),
                       ),
@@ -321,108 +264,116 @@ class _EventsScreenState extends State<EventsScreen> {
                 ),
               ],
             ),
-            Padding(
-              padding: const EdgeInsets.only(
-                right: 20,
-              ),
-              child: Align(
-                alignment: Alignment.topRight,
-                child: Container(
-                  height: 70,
-                  padding: const EdgeInsets.all(5),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(25),
-                    color: colorBlindness(
-                      greyUsed,
-                      returnColorBlindNessTypeFromIndex(
-                        colourBlindnessIndex,
-                      ),
-                    ),
-                  ),
-                  child: GestureDetector(
-                    onTap: () async {
-                      await Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const PastEventsScreen()));
-                    },
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          width: 35,
-                          height: 35,
-                          child: Image.asset("assets/archive.png"),
-                        ),
-                        const SizedBox(
-                          height: 2,
-                        ),
-                        Text(
-                          "Past Events",
-                          style: TextStyle(
-                            color: colorBlindness(
-                              whiteUsed,
-                              returnColorBlindNessTypeFromIndex(
-                                colourBlindnessIndex,
-                              ),
-                            ),
-                            fontSize: 12,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(
-                right: 120,
-              ),
-              child: Align(
-                alignment: Alignment.topRight,
-                child: Container(
-                  height: 70,
-                  padding: const EdgeInsets.all(5),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(25),
-                    color: colorBlindness(
-                      greyUsed,
-                      returnColorBlindNessTypeFromIndex(
-                        colourBlindnessIndex,
-                      ),
-                    ),
-                  ),
-                  child: GestureDetector(
-                    onTap: buildEventsForCalendar,
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          width: 35,
-                          height: 35,
-                          child: Image.asset("assets/calendar.png"),
-                        ),
-                        const SizedBox(
-                          height: 2,
-                        ),
-                        Text(
-                          "Calendar View",
-                          style: TextStyle(
-                            color: colorBlindness(
-                              whiteUsed,
-                              returnColorBlindNessTypeFromIndex(
-                                colourBlindnessIndex,
-                              ),
-                            ),
-                            fontSize: 12,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ),
+            pastEventsButton(context),
+            calendarViewButton(),
           ],
+        ),
+      ),
+    );
+  }
+
+  Padding calendarViewButton() {
+    return Padding(
+      padding: const EdgeInsets.only(
+        right: 120,
+      ),
+      child: Align(
+        alignment: Alignment.topRight,
+        child: Container(
+          height: 70,
+          padding: const EdgeInsets.all(5),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(25),
+            color: colorBlindness(
+              greyUsed,
+              returnColorBlindNessTypeFromIndex(
+                colourBlindnessIndex,
+              ),
+            ),
+          ),
+          child: GestureDetector(
+            onTap: buildEventsForCalendar,
+            child: Column(
+              children: [
+                SizedBox(
+                  width: 35,
+                  height: 35,
+                  child: Image.asset("assets/calendar.png"),
+                ),
+                const SizedBox(
+                  height: 2,
+                ),
+                Text(
+                  "Calendar View",
+                  style: TextStyle(
+                    color: colorBlindness(
+                      whiteUsed,
+                      returnColorBlindNessTypeFromIndex(
+                        colourBlindnessIndex,
+                      ),
+                    ),
+                    fontSize: 12,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Padding pastEventsButton(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(
+        right: 20,
+      ),
+      child: Align(
+        alignment: Alignment.topRight,
+        child: Container(
+          height: 70,
+          padding: const EdgeInsets.all(5),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(25),
+            color: colorBlindness(
+              greyUsed,
+              returnColorBlindNessTypeFromIndex(
+                colourBlindnessIndex,
+              ),
+            ),
+          ),
+          child: GestureDetector(
+            onTap: () async {
+              await Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const PastEventsScreen()));
+            },
+            child: Column(
+              children: [
+                SizedBox(
+                  width: 35,
+                  height: 35,
+                  child: Image.asset("assets/archive.png"),
+                ),
+                const SizedBox(
+                  height: 2,
+                ),
+                Text(
+                  "Past Events",
+                  style: TextStyle(
+                    color: colorBlindness(
+                      whiteUsed,
+                      returnColorBlindNessTypeFromIndex(
+                        colourBlindnessIndex,
+                      ),
+                    ),
+                    fontSize: 12,
+                  ),
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );
@@ -600,6 +551,76 @@ class _EventsScreenState extends State<EventsScreen> {
         ),
       );
     });
+  }
+}
+
+class AddEventButton extends StatelessWidget {
+  const AddEventButton({
+    super.key,
+    required this.colourBlindnessIndex,
+  });
+
+  final int colourBlindnessIndex;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 10, left: 40, right: 40, bottom: 10),
+      child: GestureDetector(
+        onTap: () async {
+          Navigator.of(context).push(HeroDialogueRoute(builder: (context) {
+            return const AddEvent();
+          }));
+        },
+        child: Hero(
+          tag: 'add-event',
+          child: Material(
+            color: Colors.transparent,
+            child: Container(
+              padding: const EdgeInsets.only(
+                left: 20,
+                right: 20,
+              ),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                color: blackUsed,
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Icon(
+                    Icons.event_seat,
+                    color: colorBlindness(
+                      whiteUsed,
+                      returnColorBlindNessTypeFromIndex(
+                        colourBlindnessIndex,
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: Text(
+                        "Create New Event",
+                        style: TextStyle(
+                          color: colorBlindness(
+                            whiteUsed,
+                            returnColorBlindNessTypeFromIndex(
+                              colourBlindnessIndex,
+                            ),
+                          ),
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }
 

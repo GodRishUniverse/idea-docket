@@ -99,11 +99,12 @@ dependencies:
 
   color_blindness: ^0.2.0
 
+  equatable: ^2.0.5
+
   # packages not used so far
   share_plus: ^9.0.0
-  flutter_painter_v2: ^2.0.1
-  workmanager: ^0.5.2
-  equatable: ^2.0.5
+
+  
 
   
   

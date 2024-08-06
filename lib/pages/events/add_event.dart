@@ -1,6 +1,9 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:color_blindness/color_blindness.dart';
 import 'package:flutter/material.dart';
+import 'package:idea_docket/misc/snack_bar.dart';
 
 import 'package:idea_docket/theme/colours.dart';
 
@@ -134,98 +137,18 @@ class _AddEventState extends State<AddEvent> {
                     ),
                     const SizedBox(height: 20),
                     // Add your form fields or other content here
-                    TextField(
-                      controller: titleController,
-                      decoration: InputDecoration(
-                        hintText: 'Title',
-                        hintStyle: TextStyle(
-                          color: colorBlindness(
-                            whiteUsed,
-                            returnColorBlindNessTypeFromIndex(
-                              colourBlindnessIndex,
-                            ),
-                          ).withOpacity(0.75),
-                          fontFamily: 'GilroyBold',
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: colorBlindness(
-                              whiteUsed,
-                              returnColorBlindNessTypeFromIndex(
-                                colourBlindnessIndex,
-                              ),
-                            ),
-                          ),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: colorBlindness(
-                              orangeUsed,
-                              returnColorBlindNessTypeFromIndex(
-                                colourBlindnessIndex,
-                              ),
-                            ),
-                          ),
-                          borderRadius: BorderRadius.circular(22),
-                        ),
-                      ),
-                      style: TextStyle(
-                        color: colorBlindness(
-                          whiteUsed,
-                          returnColorBlindNessTypeFromIndex(
-                            colourBlindnessIndex,
-                          ),
-                        ),
-                        fontFamily: 'Gilroy',
-                      ),
-                    ),
+                    TitleWidget(
+                        titleController: titleController,
+                        colourBlindnessIndex: colourBlindnessIndex),
                     const SizedBox(height: 10),
                     TextField(
                       controller: dateController,
                       onTap: () {
                         _selectDate();
                       },
-                      decoration: InputDecoration(
-                        hintText: 'Date',
-                        hintStyle: TextStyle(
-                          color: colorBlindness(
-                            whiteUsed,
-                            returnColorBlindNessTypeFromIndex(
-                              colourBlindnessIndex,
-                            ),
-                          ).withOpacity(0.75),
-                          fontFamily: 'GilroyBold',
-                        ),
-                        prefixIcon: Icon(
-                          Icons.calendar_today,
-                          color: colorBlindness(
-                            whiteUsed,
-                            returnColorBlindNessTypeFromIndex(
-                              colourBlindnessIndex,
-                            ),
-                          ),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: colorBlindness(
-                              whiteUsed,
-                              returnColorBlindNessTypeFromIndex(
-                                colourBlindnessIndex,
-                              ),
-                            ),
-                          ),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: colorBlindness(
-                              orangeUsed,
-                              returnColorBlindNessTypeFromIndex(
-                                colourBlindnessIndex,
-                              ),
-                            ),
-                          ),
-                          borderRadius: BorderRadius.circular(22),
-                        ),
+                      decoration: dateDecoration(
+                        'Date',
+                        Icons.calendar_today,
                       ),
                       style: TextStyle(
                         color: colorBlindness(
@@ -250,48 +173,9 @@ class _AddEventState extends State<AddEvent> {
                               onTap: () {
                                 _selectStartTime();
                               },
-                              decoration: InputDecoration(
-                                prefixIcon: Icon(
-                                  Icons.schedule,
-                                  color: colorBlindness(
-                                    whiteUsed,
-                                    returnColorBlindNessTypeFromIndex(
-                                      colourBlindnessIndex,
-                                    ),
-                                  ),
-                                ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: colorBlindness(
-                                      whiteUsed,
-                                      returnColorBlindNessTypeFromIndex(
-                                        colourBlindnessIndex,
-                                      ),
-                                    ),
-                                  ),
-                                  borderRadius: BorderRadius.circular(22),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: colorBlindness(
-                                      orangeUsed,
-                                      returnColorBlindNessTypeFromIndex(
-                                        colourBlindnessIndex,
-                                      ),
-                                    ),
-                                  ),
-                                  borderRadius: BorderRadius.circular(22),
-                                ),
-                                hintText: 'Start Time',
-                                hintStyle: TextStyle(
-                                  color: colorBlindness(
-                                    whiteUsed,
-                                    returnColorBlindNessTypeFromIndex(
-                                      colourBlindnessIndex,
-                                    ),
-                                  ).withOpacity(0.75),
-                                  fontFamily: 'GilroyBold',
-                                ),
+                              decoration: dateDecoration(
+                                'Start Time',
+                                Icons.schedule,
                               ),
                               style: TextStyle(
                                 color: colorBlindness(
@@ -314,48 +198,9 @@ class _AddEventState extends State<AddEvent> {
                               onTap: () {
                                 _selectEndTime();
                               },
-                              decoration: InputDecoration(
-                                prefixIcon: Icon(
-                                  Icons.lock_clock,
-                                  color: colorBlindness(
-                                    whiteUsed,
-                                    returnColorBlindNessTypeFromIndex(
-                                      colourBlindnessIndex,
-                                    ),
-                                  ),
-                                ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: colorBlindness(
-                                      whiteUsed,
-                                      returnColorBlindNessTypeFromIndex(
-                                        colourBlindnessIndex,
-                                      ),
-                                    ),
-                                  ),
-                                  borderRadius: BorderRadius.circular(22),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: colorBlindness(
-                                      orangeUsed,
-                                      returnColorBlindNessTypeFromIndex(
-                                        colourBlindnessIndex,
-                                      ),
-                                    ),
-                                  ),
-                                  borderRadius: BorderRadius.circular(22),
-                                ),
-                                hintText: 'End Time',
-                                hintStyle: TextStyle(
-                                  color: colorBlindness(
-                                    whiteUsed,
-                                    returnColorBlindNessTypeFromIndex(
-                                      colourBlindnessIndex,
-                                    ),
-                                  ).withOpacity(0.75),
-                                  fontFamily: 'GilroyBold',
-                                ),
+                              decoration: dateDecoration(
+                                'End Time',
+                                Icons.lock_clock,
                               ),
                               style: TextStyle(
                                 color: colorBlindness(
@@ -374,53 +219,9 @@ class _AddEventState extends State<AddEvent> {
                     ),
 
                     const SizedBox(height: 10),
-                    TextField(
-                      controller: descController,
-                      decoration: InputDecoration(
-                        hintText: 'Description',
-                        hintStyle: TextStyle(
-                          color: colorBlindness(
-                            whiteUsed,
-                            returnColorBlindNessTypeFromIndex(
-                              colourBlindnessIndex,
-                            ),
-                          ).withOpacity(0.75),
-                          fontFamily: 'GilroyBold',
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: colorBlindness(
-                              whiteUsed,
-                              returnColorBlindNessTypeFromIndex(
-                                colourBlindnessIndex,
-                              ),
-                            ),
-                          ),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: colorBlindness(
-                              orangeUsed,
-                              returnColorBlindNessTypeFromIndex(
-                                colourBlindnessIndex,
-                              ),
-                            ),
-                          ),
-                          borderRadius: BorderRadius.circular(22),
-                        ),
-                      ),
-                      style: TextStyle(
-                        color: colorBlindness(
-                          whiteUsed,
-                          returnColorBlindNessTypeFromIndex(
-                            colourBlindnessIndex,
-                          ),
-                        ),
-                        fontFamily: 'Gilroy',
-                      ),
-                      minLines: 3,
-                      maxLines: null,
-                    ),
+                    DescriptionWidget(
+                        descController: descController,
+                        colourBlindnessIndex: colourBlindnessIndex),
                     const SizedBox(height: 10),
                     Padding(
                       padding: const EdgeInsets.all(2),
@@ -468,6 +269,52 @@ class _AddEventState extends State<AddEvent> {
     );
   }
 
+  InputDecoration dateDecoration(String hintText, IconData icon) {
+    return InputDecoration(
+      hintText: hintText,
+      hintStyle: TextStyle(
+        color: colorBlindness(
+          whiteUsed,
+          returnColorBlindNessTypeFromIndex(
+            colourBlindnessIndex,
+          ),
+        ).withOpacity(0.75),
+        fontFamily: 'GilroyBold',
+      ),
+      prefixIcon: Icon(
+        icon,
+        color: colorBlindness(
+          whiteUsed,
+          returnColorBlindNessTypeFromIndex(
+            colourBlindnessIndex,
+          ),
+        ),
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderSide: BorderSide(
+          color: colorBlindness(
+            whiteUsed,
+            returnColorBlindNessTypeFromIndex(
+              colourBlindnessIndex,
+            ),
+          ),
+        ),
+        borderRadius: BorderRadius.circular(22),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderSide: BorderSide(
+          color: colorBlindness(
+            orangeUsed,
+            returnColorBlindNessTypeFromIndex(
+              colourBlindnessIndex,
+            ),
+          ),
+        ),
+        borderRadius: BorderRadius.circular(22),
+      ),
+    );
+  }
+
   Future addEvent() async {
     DateTime dateWithStartTime = DateTime(
       selectedDate.year,
@@ -489,40 +336,47 @@ class _AddEventState extends State<AddEvent> {
     if (!dateWithStartTime.isBefore(DateTime.now())) {
       if (!dateWithEndTime.isBefore(DateTime.now())) {
         if (!dateWithEndTime.isBefore(dateWithStartTime)) {
-          final event = Event(
-            id: lastId + 1,
-            title: titleController.text.trim(),
-            description: descController.text.trim(),
-            date: Timestamp.fromDate(DateTime(
-                selectedDate.year, selectedDate.month, selectedDate.day)),
-            dateWithStartTime: Timestamp.fromDate(dateWithStartTime),
-            dateWithEndTime: Timestamp.fromDate(dateWithEndTime),
-            color: getRandomLightColour(),
-          );
-
-          DocumentReference ref =
-              await firestoreServiceForEvents.addEvent(event);
-
-          if (await SignedInWithGoogleCheck.isSignedInWithGoogle()) {
-            final eventWithDocID = Event(
-              docID: ref.id,
-              id: event.id,
-              title: event.title,
-              description: event.description,
-              date: event.date,
-              dateWithStartTime: event.dateWithStartTime,
-              dateWithEndTime: event.dateWithEndTime,
-              color: event.color,
+          try {
+            final event = Event(
+              id: lastId + 1,
+              title: titleController.text.trim(),
+              description: descController.text.trim(),
+              date: Timestamp.fromDate(DateTime(
+                  selectedDate.year, selectedDate.month, selectedDate.day)),
+              dateWithStartTime: Timestamp.fromDate(dateWithStartTime),
+              dateWithEndTime: Timestamp.fromDate(dateWithEndTime),
+              color: getRandomLightColour(),
             );
 
-            GoogleCalendarClient calendarClient = GoogleCalendarClient();
-            await calendarClient.calendarAPI();
-            calendarClient.insert(eventWithDocID);
-          }
+            DocumentReference ref =
+                await firestoreServiceForEvents.addEvent(event);
 
-          WidgetsBinding.instance.addPostFrameCallback((_) {
-            Navigator.pop(context);
-          });
+            if (await SignedInWithGoogleCheck.isSignedInWithGoogle()) {
+              final eventWithDocID = Event(
+                docID: ref.id,
+                id: event.id,
+                title: event.title,
+                description: event.description,
+                date: event.date,
+                dateWithStartTime: event.dateWithStartTime,
+                dateWithEndTime: event.dateWithEndTime,
+                color: event.color,
+              );
+
+              GoogleCalendarClient calendarClient = GoogleCalendarClient();
+              await calendarClient.calendarAPI();
+              calendarClient.insert(eventWithDocID);
+            }
+          } catch (e) {
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              log(e.toString());
+              showSnackBarError(context, "Internal Error");
+            });
+          } finally {
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              Navigator.pop(context);
+            });
+          }
         } else {
           errorBoxWhenAdding('Start time cannot be after end time.');
         }
@@ -553,6 +407,128 @@ class _AddEventState extends State<AddEvent> {
             child: const Text('OK'),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class DescriptionWidget extends StatelessWidget {
+  const DescriptionWidget({
+    super.key,
+    required this.descController,
+    required this.colourBlindnessIndex,
+  });
+
+  final TextEditingController descController;
+  final int colourBlindnessIndex;
+
+  @override
+  Widget build(BuildContext context) {
+    return TextField(
+      controller: descController,
+      decoration: InputDecoration(
+        hintText: 'Description',
+        hintStyle: TextStyle(
+          color: colorBlindness(
+            whiteUsed,
+            returnColorBlindNessTypeFromIndex(
+              colourBlindnessIndex,
+            ),
+          ).withOpacity(0.75),
+          fontFamily: 'GilroyBold',
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: colorBlindness(
+              whiteUsed,
+              returnColorBlindNessTypeFromIndex(
+                colourBlindnessIndex,
+              ),
+            ),
+          ),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: colorBlindness(
+              orangeUsed,
+              returnColorBlindNessTypeFromIndex(
+                colourBlindnessIndex,
+              ),
+            ),
+          ),
+          borderRadius: BorderRadius.circular(22),
+        ),
+      ),
+      style: TextStyle(
+        color: colorBlindness(
+          whiteUsed,
+          returnColorBlindNessTypeFromIndex(
+            colourBlindnessIndex,
+          ),
+        ),
+        fontFamily: 'Gilroy',
+      ),
+      minLines: 3,
+      maxLines: null,
+    );
+  }
+}
+
+class TitleWidget extends StatelessWidget {
+  const TitleWidget({
+    super.key,
+    required this.titleController,
+    required this.colourBlindnessIndex,
+  });
+
+  final TextEditingController titleController;
+  final int colourBlindnessIndex;
+
+  @override
+  Widget build(BuildContext context) {
+    return TextField(
+      controller: titleController,
+      decoration: InputDecoration(
+        hintText: 'Title',
+        hintStyle: TextStyle(
+          color: colorBlindness(
+            whiteUsed,
+            returnColorBlindNessTypeFromIndex(
+              colourBlindnessIndex,
+            ),
+          ).withOpacity(0.75),
+          fontFamily: 'GilroyBold',
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: colorBlindness(
+              whiteUsed,
+              returnColorBlindNessTypeFromIndex(
+                colourBlindnessIndex,
+              ),
+            ),
+          ),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: colorBlindness(
+              orangeUsed,
+              returnColorBlindNessTypeFromIndex(
+                colourBlindnessIndex,
+              ),
+            ),
+          ),
+          borderRadius: BorderRadius.circular(22),
+        ),
+      ),
+      style: TextStyle(
+        color: colorBlindness(
+          whiteUsed,
+          returnColorBlindNessTypeFromIndex(
+            colourBlindnessIndex,
+          ),
+        ),
+        fontFamily: 'Gilroy',
       ),
     );
   }
