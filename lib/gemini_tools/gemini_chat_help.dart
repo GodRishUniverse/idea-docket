@@ -93,7 +93,7 @@ class _GeminiChatForUnderstandingAndSearchingState
     } catch (e) {
       debugPrint(e.toString());
     } finally {
-      controller.clear();
+      // controller.clear();
       // Scroll down the page automatically when a response is received
       _scrollController.animateTo(
         _scrollController.position.maxScrollExtent,
