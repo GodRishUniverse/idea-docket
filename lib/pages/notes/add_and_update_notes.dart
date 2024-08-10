@@ -65,6 +65,8 @@ class _AddNotePopUpCardState extends State<AddAndUpdateNotePopUpCard> {
 
   int colourBlindnessIndex = 0;
 
+  final FocusNode _focusNode = FocusNode();
+
   @override
   void initState() {
     super.initState();
@@ -470,7 +472,10 @@ class _AddNotePopUpCardState extends State<AddAndUpdateNotePopUpCard> {
                   child: Column(
                     children: [
                       NoteEditorWidget(
-                          controller: controller, updatingNote: updatingNote),
+                        controller: controller,
+                        updatingNote: updatingNote,
+                        focusNode: _focusNode,
+                      ),
                       AttachmentsWidget(
                         updatingNote: updatingNote,
                         widget: widget,
@@ -840,10 +845,12 @@ class NoteEditorWidget extends StatelessWidget {
     super.key,
     required this.controller,
     required this.updatingNote,
+    required this.focusNode,
   });
 
   final quill.QuillController controller;
   final bool updatingNote;
+  final FocusNode focusNode;
 
   @override
   Widget build(BuildContext context) {
@@ -856,24 +863,29 @@ class NoteEditorWidget extends StatelessWidget {
           fontSize: 16,
         ),
         child: Scrollbar(
-          child: Container(
-            constraints: BoxConstraints(
-              minHeight: MediaQuery.of(context).size.height * 0.45,
-            ),
-            child: quill.QuillEditor(
-              configurations: quill.QuillEditorConfigurations(
-                embedBuilders: FlutterQuillEmbeds.editorBuilders(),
-                controller: controller,
-                padding: const EdgeInsets.all(8),
-                scrollable: false,
-                autoFocus: false,
-                expands: false,
-                placeholder: updatingNote ? "" : 'Write your Note here...',
-                enableScribble: true,
-                enableSelectionToolbar: true,
+          child: GestureDetector(
+            onTap: () {
+              focusNode.requestFocus(); // Bring the editor into focus
+            },
+            child: Container(
+              constraints: BoxConstraints(
+                minHeight: MediaQuery.of(context).size.height * 0.45,
               ),
-              scrollController: ScrollController(),
-              focusNode: FocusNode(),
+              child: quill.QuillEditor(
+                configurations: quill.QuillEditorConfigurations(
+                  embedBuilders: FlutterQuillEmbeds.editorBuilders(),
+                  controller: controller,
+                  padding: const EdgeInsets.all(8),
+                  scrollable: false,
+                  autoFocus: false,
+                  expands: false,
+                  placeholder: updatingNote ? "" : 'Write your Note here...',
+                  enableScribble: true,
+                  enableSelectionToolbar: true,
+                ),
+                scrollController: ScrollController(),
+                focusNode: focusNode,
+              ),
             ),
           ),
         ),
