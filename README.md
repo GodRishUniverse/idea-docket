@@ -11,3 +11,10 @@
 
 ## Possible Errors
 - If there are any bugs or errors encountered then do please contact me. I'll fix them as soon as I can.
+
+## TODO
+[] Need to add encryption and payment methods to use firebase cloud storage
+[] Fix Scrolling bug 
+[] Fix Gemini Bugs
+[] Write Unit Tests
+[] Publish on App Store
