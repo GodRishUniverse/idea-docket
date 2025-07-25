@@ -40,7 +40,7 @@ class _GeminiChatForUnderstandingAndSearchingState
   @override
   void initState() {
     model = GenerativeModel(
-        model: 'gemini-1.5-pro', apiKey: dotenv.env['GOOGLE_GEMINI_API_KEY']!);
+        model: 'gemini-2.5-pro', apiKey: dotenv.env['GOOGLE_GEMINI_API_KEY']!);
     _chat = model.startChat();
     initColourBlindnessIndex();
     super.initState();

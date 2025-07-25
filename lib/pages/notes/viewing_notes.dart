@@ -39,7 +39,7 @@ class _NotesViewingScreenState extends State<NotesViewingScreen> {
   FlutterTts flutterTts = FlutterTts();
 
   final GenerativeModel model = GenerativeModel(
-      model: 'gemini-1.5-pro', apiKey: dotenv.env['GOOGLE_GEMINI_API_KEY']!);
+      model: 'gemini-2.5-pro', apiKey: dotenv.env['GOOGLE_GEMINI_API_KEY']!);
   late final String jsonString;
 
   bool isLoading = false;

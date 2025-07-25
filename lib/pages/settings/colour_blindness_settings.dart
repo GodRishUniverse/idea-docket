@@ -67,7 +67,7 @@ class _ColourBlindnessSettingsState extends State<ColourBlindnessSettings> {
         isLoading = true;
       });
       GenerativeModel model = GenerativeModel(
-          model: 'gemini-1.5-pro',
+          model: 'gemini-2.5-flash',
           apiKey: dotenv.env['GOOGLE_GEMINI_API_KEY']!);
 
       String prompt =

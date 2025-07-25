@@ -46,7 +46,7 @@ class _ImageToNoteState extends State<ImageToNote> {
   Future callGeminiToGetText() async {
     try {
       model = GenerativeModel(
-          model: 'gemini-1.5-pro',
+          model: 'gemini-2.5-pro',
           apiKey: dotenv.env['GOOGLE_GEMINI_API_KEY']!);
       if (imageFile != null) {
         final imageBytes = await imageFile!.readAsBytes();
